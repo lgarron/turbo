@@ -19,14 +19,14 @@ jobs:
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
     - run: yarn install
-    - run: yarn run playwright install --with-deps
+    # - run: yarn run playwright install --with-deps
     - run: yarn build
 
-    - name: Set Chrome Version
-      run: |
-        CHROMEVER="$(chromedriver --version | cut -d' ' -f2)"
-        echo "Actions ChromeDriver is $CHROMEVER"
-        echo "CHROMEVER=${CHROMEVER}" >> $GITHUB_ENV
+    # - name: Set Chrome Version
+    #   run: |
+    #     CHROMEVER="$(chromedriver --version | cut -d' ' -f2)"
+    #     echo "Actions ChromeDriver is $CHROMEVER"
+    #     echo "CHROMEVER=${CHROMEVER}" >> $GITHUB_ENV
 
     # - name: Lint
     #   run: yarn lint
