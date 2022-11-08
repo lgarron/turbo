@@ -20,7 +20,7 @@ jobs:
 
       - name: Update version
         run: |
-          version=$(jq -r .version package.json).$(git rev-parse --short HEAD)
+          version=$(jq -r .version package.json)-$(git rev-parse --short HEAD)
           echo "$(jq --arg v "${version}" '.version = $v' package.json)" > package.json
       - run: yarn build
 
