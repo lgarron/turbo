@@ -19,27 +19,23 @@ jobs:
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
     - run: yarn install
-    # - run: yarn run playwright install --with-deps
+    - run: yarn run playwright install --with-deps
     - run: yarn build
 
-    # - name: Set Chrome Version
-    #   run: |
-    #     CHROMEVER="$(chromedriver --version | cut -d' ' -f2)"
-    #     echo "Actions ChromeDriver is $CHROMEVER"
-    #     echo "CHROMEVER=${CHROMEVER}" >> $GITHUB_ENV
+    - name: Set Chrome Version
+      run: |
+        CHROMEVER="$(chromedriver --version | cut -d' ' -f2)"
+        echo "Actions ChromeDriver is $CHROMEVER"
+        echo "CHROMEVER=${CHROMEVER}" >> $GITHUB_ENV
 
-    # - name: Lint
-    #   run: yarn lint
+    - name: Lint
+      run: yarn lint
 
-    # - name: Unit Test
-    #   run: yarn test:unit
+    - name: Unit Test
+      run: yarn test:unit
 
-    # - name: Chrome Test
-    #   run: yarn test:browser --project=chrome
+    - name: Chrome Test
+      run: yarn test:browser --project=chrome
 
-    # - name: Firefox Test
-    #   run: yarn test:browser --project=firefox
-
-    - name: Publish dev build
-      run: .github/scripts/publish-dev-build '${{ secrets.DEV_BUILD_GITHUB_TOKEN }}'
-      if: ${{ github.event_name == 'push' }}
+    - name: Firefox Test
+      run: yarn test:browser --project=firefox
