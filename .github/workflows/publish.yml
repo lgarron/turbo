@@ -15,7 +15,16 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
-      - run: npm publish
+
+      - run: yarn install
+
+      - name: Update version
+        run: |
+        version=$(jq -r .version package.json).$(git rev-parse --short HEAD)
+        echo "$(jq --arg v "${version}" '.version = $v' package.json)" > package.json
+
+      - run: yarn build
+
+      - run: npm publish --tag $(git rev-parse --short HEAD)
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
