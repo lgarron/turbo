@@ -13,8 +13,12 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '16'
           registry-url: 'https://registry.npmjs.org'
+      - uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install
 
@@ -22,6 +26,7 @@ jobs:
         run: |
           version=$(jq -r .version package.json)-$(git rev-parse --short HEAD)
           echo "$(jq --arg v "${version}" '.version = $v' package.json)" > package.json
+
       - run: yarn build
 
       - run: npm publish --tag $(git rev-parse --short HEAD)
