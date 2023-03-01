@@ -62,8 +62,8 @@
     "start": "node src/tests/runner.js serveOnly",
     "test": "yarn test:unit && yarn test:browser",
     "test:browser": "playwright test",
-    "test:unit": "NODE_OPTIONS=--inspect node src/tests/runner.js",
-    "test:unit:win": "SET NODE_OPTIONS=--inspect & node src/tests/runner.js",
+    "test:unit": "export CHROMEVER=$(script/chromedriver_version) && NODE_OPTIONS=--inspect node src/tests/runner.js",
+    "test:unit:win": "export CHROMEVER=$(script/chromedriver_version) && SET NODE_OPTIONS=--inspect & node src/tests/runner.js",
     "release": "yarn build && npm publish",
     "lint": "eslint . --ext .ts"
   },
